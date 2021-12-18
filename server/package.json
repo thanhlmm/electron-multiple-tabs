@@ -1,0 +1,60 @@
+{
+  "name": "refi-app",
+  "productName": "RefiApp",
+  "homepage": "https://refiapp.io",
+  "authors": "mihthanh27@gmail.com",
+  "version": "0.0.11",
+  "description": "A tool to make developer less pain when developing application with Firestore indeed they will save move time to focus on building application instead of playing with poor DX product",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -fr dist",
+    "watch": "tsc -w",
+    "dev": "run-p watch start",
+    "start": "electron .",
+    "build": "yarn && todesktop build",
+    "quick-build": "yarnn && todesktop build . --code-sign=false",
+    "release": "yarn && todesktop build && todesktop release --latest --force",
+    "copy-fe": "rm -rf build && cp -r ../vite/dist ./build",
+    "build-ts": "tsc --sourceMap false && node minify.js",
+    "prepare": "yarn run build-ts",
+    "lint": "eslint --ext .ts ."
+  },
+  "keywords": [],
+  "author": {
+    "name": "Thanh Le",
+    "email": "mihthanh27@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "electron": "12.0.0",
+    "electron-devtools-installer": "^3.1.1",
+    "electron-notarize": "^1.0.0",
+    "electron-winstaller": "^5.0.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "^2.20.0",
+    "npm-run-all": "^4.1.5",
+    "source-map-support": "^0.5.19",
+    "terser": "^5.6.1",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@todesktop/runtime": "^0.6.5",
+    "@types/lowdb": "^1.0.9",
+    "axios": "^0.21.1",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-is-dev": "^1.2.0",
+    "electron-log": "^4.3.2",
+    "electron-serve": "^1.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "lodash": "^4.17.21",
+    "lowdb": "^1.0.0",
+    "node-ipc": "^9.1.3",
+    "open": "^8.0.1",
+    "secure-electron-context-menu": "^1.2.2",
+    "uuid": "^8.3.2"
+  }
+}
