@@ -20,3 +20,42 @@ https://www.youtube.com/watch?v=U9RA9_Imt90&ab_channel=ThanhLe
 ## More detail
 
 https://thanhle.blog/blog/electron-multiple-Tabs-without-dealing-with-performance
+
+## Stacks
+
+- Vite
+- React
+- Tailwind
+- TypeScript
+- Electron
+
+## Development
+
+Go to `vite` folder
+
+```
+yarn
+yarn dev
+```
+
+Then open new terminal, go to `server` folder
+
+```
+yarn
+yarn dev
+```
+
+## Build
+
+Go to `vite` folder
+
+```
+yarn build
+```
+
+Then open new terminal, go to `server` folder
+
+```
+yarn build
+yarn package-{mac,window,linux}
+```
