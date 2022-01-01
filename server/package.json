@@ -11,13 +11,69 @@
     "watch": "tsc -w",
     "dev": "run-p watch start",
     "start": "electron .",
-    "build": "yarn && todesktop build",
-    "quick-build": "yarnn && todesktop build . --code-sign=false",
-    "release": "yarn && todesktop build && todesktop release --latest --force",
+    "package": "electron-forge package",
+    "publish-mac": "electron-forge publish --platform darwin --arch x64",
+    "publish-mac-m1": "electron-forge publish --platform darwin",
+    "publish-window": "electron-forge publish --platform win32",
+    "publish-linux": "electron-forge publish --platform linux",
+    "build": "yarn run build-ts && yarn run copy-fe",
     "copy-fe": "rm -rf build && cp -r ../vite/dist ./build",
     "build-ts": "tsc --sourceMap false && node minify.js",
     "prepare": "yarn run build-ts",
     "lint": "eslint --ext .ts ."
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "executableName": "refi-app",
+        "icon": "./assets/icon",
+        "appCategoryType": "public.app-category.developer-tools",
+        "appBundleId": "iOS.RefiApp.desktop",
+        "ignore": [
+          "^/src/",
+          "^/key"
+        ]
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "icon": "./assets/icon.icns",
+            "overwrite": true
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip"
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "platforms": [
+            "darwin",
+            "linux",
+            "window"
+          ],
+          "config": {
+            "authToken": "YOUR_TOKEN",
+            "repository": {
+              "owner": "YOUR GH USERNAME",
+              "name": "YOUR GH REPO"
+            },
+            "draft": true,
+            "prerelease": true
+          }
+        }
+      ]
+    }
   },
   "keywords": [],
   "author": {
@@ -45,6 +101,7 @@
     "@todesktop/runtime": "^0.6.5",
     "@types/lowdb": "^1.0.9",
     "axios": "^0.21.1",
+    "electron-forge": "^5.2.4",
     "electron-installer-dmg": "^3.0.0",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.3.2",
