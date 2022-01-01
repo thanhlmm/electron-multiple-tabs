@@ -4,14 +4,14 @@
 - Hotkeys all the thing (Cmd + T for a new tab, Cmd + W to the closing current one)
 - Fast
 
-![img/img2.png](Overview)
+![Overview](img/img2.png)
 
 ## How
 
 Using `webview` under the hook to implement multiple tab
 Using node-ipc to make server instance comunicate
 
-![img/img1.png](Architecture)
+![Architecture](img/img1.png)
 
 ## Demo
 
