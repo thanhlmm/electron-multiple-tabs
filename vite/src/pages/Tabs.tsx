@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, TabList, Tab } from "@zendeskgarden/react-tabs";
 import classNames from "classnames";
-// import BrowserView from "react-electron-browser-view";
 
 const TabsPage = () => {
   const [selectedTab, setSelectedTab] = useState("tab-1");
@@ -58,7 +57,7 @@ const TabsPage = () => {
     window.api.toggleMaximumWindow();
   };
 
-  const isMacOS = window.os === "darwin" || window.os === "Darwin";
+  const isMacOS = navigator.appVersion.indexOf("Mac") != -1;
   // const isMacOS = false;
 
   return (
