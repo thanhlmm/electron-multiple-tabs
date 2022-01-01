@@ -1,7 +1,7 @@
 ## Electron multiple tabs:
 
 - Implement user's familiar UX tabs - Like what chrome does
-- Hotkeys all the thing (Cmd + T for a new tab, Cmd + W to the closing current one)
+- Hotkeys all the thing (`Cmd + T` for a new tab, `Cmd + W` to the closing current one)
 - Fast
 
 ![Overview](img/img2.png)
