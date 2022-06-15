@@ -67,7 +67,6 @@
     "appId": "iOS.MultipleTab.desktop",
     "productName": "Multiple Tab",
     "asar": false,
-    "afterSign": "notarize.js",
     "mac": {
       "icon": "./assets/icon.icns"
     },
