@@ -1,79 +1,23 @@
 {
-  "name": "refi-app",
-  "productName": "RefiApp",
-  "homepage": "https://refiapp.io",
+  "name": "multiple-tab",
+  "productName": "Multiple Tab",
+  "homepage": "https://github.com/thanhlmm/electron-multiple-tabs",
   "authors": "mihthanh27@gmail.com",
-  "version": "0.0.11",
-  "description": "A tool to make developer less pain when developing application with Firestore indeed they will save move time to focus on building application instead of playing with poor DX product",
-  "main": "dist/index.js",
+  "version": "0.0.1",
+  "description": "High performance multiple tabs for Electron",
+  "main": "server/index.js",
   "scripts": {
     "clean": "rm -fr dist",
     "watch": "tsc -w",
     "dev": "run-p watch start",
-    "start": "electron .",
-    "package": "electron-forge package",
-    "publish-mac": "electron-forge publish --platform darwin --arch x64",
-    "publish-mac-m1": "electron-forge publish --platform darwin",
-    "publish-window": "electron-forge publish --platform win32",
-    "publish-linux": "electron-forge publish --platform linux",
-    "build": "yarn run build-ts && yarn run copy-fe",
+    "start": "electron-forge start",
+    "build": "yarn && todesktop build",
+    "quick-build": "yarn && todesktop build . --code-sign=false",
     "copy-fe": "rm -rf build && cp -r ../vite/dist ./build",
-    "build-ts": "tsc --sourceMap false && node minify.js",
+    "build-ts": "tsc --sourceMap false",
     "prepare": "yarn run build-ts",
-    "lint": "eslint --ext .ts ."
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "executableName": "refi-app",
-        "icon": "./assets/icon",
-        "appCategoryType": "public.app-category.developer-tools",
-        "appBundleId": "iOS.RefiApp.desktop",
-        "ignore": [
-          "^/src/",
-          "^/key"
-        ]
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-dmg",
-          "config": {
-            "icon": "./assets/icon.icns",
-            "overwrite": true
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip"
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "publishers": [
-        {
-          "name": "@electron-forge/publisher-github",
-          "platforms": [
-            "darwin",
-            "linux",
-            "window"
-          ],
-          "config": {
-            "authToken": "YOUR_TOKEN",
-            "repository": {
-              "owner": "YOUR GH USERNAME",
-              "name": "YOUR GH REPO"
-            },
-            "draft": true,
-            "prerelease": true
-          }
-        }
-      ]
-    }
+    "lint": "eslint --ext .ts .",
+    "package": "electron-builder"
   },
   "keywords": [],
   "author": {
@@ -82,14 +26,20 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "electron": "12.0.0",
+    "electron-builder": "^23.0.3",
     "electron-devtools-installer": "^3.1.1",
     "electron-notarize": "^1.0.0",
-    "electron-winstaller": "^5.0.0",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.20.0",
     "npm-run-all": "^4.1.5",
@@ -101,8 +51,7 @@
     "@todesktop/runtime": "^0.6.5",
     "@types/lowdb": "^1.0.9",
     "axios": "^0.21.1",
-    "electron-forge": "^5.2.4",
-    "electron-installer-dmg": "^3.0.0",
+    "electron-installer-debian": "^3.1.0",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.3.2",
     "electron-serve": "^1.1.0",
@@ -113,5 +62,28 @@
     "open": "^8.0.1",
     "secure-electron-context-menu": "^1.2.2",
     "uuid": "^8.3.2"
+  },
+  "build": {
+    "appId": "iOS.MultipleTab.desktop",
+    "productName": "Multiple Tab",
+    "asar": false,
+    "afterSign": "notarize.js",
+    "mac": {
+      "icon": "./assets/icon.icns"
+    },
+    "win": {
+      "icon": "./assets/icon.ico"
+    },
+    "linux": {
+      "target": "deb",
+      "icon": "./assets/icon.png"
+    },
+    "files": [
+      "**/*",
+      "server/**/*",
+      "build/**/*",
+      "!out/**",
+      "!key/**"
+    ]
   }
 }

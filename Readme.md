@@ -56,6 +56,5 @@ yarn build
 Then open new terminal, go to `server` folder
 
 ```
-yarn build
-yarn package-{mac,window,linux}
+yarn package
 ```
